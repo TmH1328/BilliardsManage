@@ -7,7 +7,7 @@ package model;
 
 /**
  *
- * @author LENOVO
+ * @author LENOVO tmh
  */
 public class Account {
     private String username;
