@@ -48,7 +48,6 @@ public class RegisterController extends HttpServlet {
         } else {
             AccountDBContext db = new AccountDBContext();
             Account account = db.checkAccountExist(username);
-
             if (account == null) {
                 db.createAccount(username, password, displayname);
                 response.sendRedirect("login");
