@@ -82,7 +82,7 @@ public class LoginController extends HttpServlet {
         }
         else
         {
-            response.getWriter().println("hello "+ account.getDisplayname());
+            response.getWriter().println("Hello "+ account.getDisplayname());
         }
     }
 
