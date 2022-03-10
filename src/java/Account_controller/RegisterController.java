@@ -56,7 +56,6 @@ public class RegisterController extends HttpServlet {
             } // account already exist in DB
             else {
                 request.getRequestDispatcher("view/register.jsp").forward(request, response);
-
             }
 
         }
