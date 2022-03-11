@@ -1,0 +1,22 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 12, 2022, 1:33:28 AM
+    Author     : LENOVO
+*/
+.pagger span
+{
+    color: red;
+}
+
+.pagger a
+{
+    border: 1px;
+    border-style: solid;
+    border-color: palegreen;
+    margin: 2px;
+    padding: 2px;
+}

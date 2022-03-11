@@ -12,8 +12,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script src="js/pagger.js" type="text/javascript"></script>
+        <link href="css/pagger.css" rel="stylesheet" type="text/css"/>
+     
     </head>
     <body>
+        <div id ="containertop" class ="pagger">        </div>
         <table border="1">
             </thead>
             <tbody>
@@ -39,6 +43,12 @@
                 </c:forEach>
             </tbody>
         </table>
+<!--        <div id ="containerbot" class ="pagger">        </div>-->
+        <script>
+            pagger("containertop",${requestScope.pageindex},${requestScope.totalpage},3);
+            pagger("containerbot",${requestScope.pageindex},${requestScope.totalpage},3);
+        </script>
+
 
     </body>
 </html>

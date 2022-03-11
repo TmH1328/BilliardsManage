@@ -35,15 +35,29 @@ public class DisplayController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Account  account = (Account)session.getAttribute("account");
+        Account account = (Account) session.getAttribute("account");
         if (account == null) {
             response.getWriter().println("access denied");
-        
+
         } else {
+            int pagesize = 10;
+            String page = request.getParameter("page");
+            if (page == null || page.trim().length() == 0) {
+                page = "1";
+            }
+            int pageindex = Integer.parseInt(page);
+
             StorageDBContext db = new StorageDBContext();
-            ArrayList<Storage> storages = db.getStorages(account.getUsername());
-            request.setAttribute("storages", storages);            
-            request.getRequestDispatcher("view/storage/display.jsp").forward(request, response);          
+//            ArrayList<Storage> storages = db.getStorages(account.getUsername());
+//            request.setAttribute("storages", storages);
+            ArrayList<Storage> storages = db.getStoragesbyPage(account.getUsername(), pageindex, pagesize);
+            request.setAttribute("storages", storages);
+            int count = db.count();
+        int totalpage = (count%pagesize==0)?(count/pagesize):(count/pagesize)+1;
+        request.setAttribute("totalpage", totalpage);
+        request.setAttribute("pageindex", pageindex);
+            
+            request.getRequestDispatcher("view/storage/display.jsp").forward(request, response);
         }
     }
 

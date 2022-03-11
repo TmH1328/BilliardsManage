@@ -48,4 +48,53 @@ public class StorageDBContext extends DBContext {
         }
         return storages;
     }
+
+    public int count() {
+        ArrayList<Storage> storages = new ArrayList<>();
+        try {
+            String sql = "SELECT COUNT(*) as Total  FROM Storage ";
+            PreparedStatement stm = connection.prepareStatement(sql);
+
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StorageDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public ArrayList<Storage> getStoragesbyPage(String username,int pageindex, int pagesize) {
+        ArrayList<Storage> storages = new ArrayList<>();
+        try {
+            String sql = "SELECT s.id, s.name, s.dateofWarehousing,s.purchaseMoney,s.quantityWarehousing,s.stocks,s.types FROM \n"
+                    + "(SELECT *, ROW_NUMBER() OVER (ORDER BY id ASC) as row_index FROM Storage) s INNER JOIN Account a\n"
+                    + "ON s.username = a.username \n"
+                    + "	WHERE row_index >= (?-1)*?+ 1\n"
+                    + "	AND row_index <= ? * ?\n"
+                    + "AND s.username = ? ";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, pageindex);
+            stm.setInt(2, pagesize);
+            stm.setInt(3, pageindex);
+            stm.setInt(4, pagesize);
+            stm.setString(5, username);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Storage s = new Storage();
+                s.setId(rs.getInt("id"));
+                s.setName(rs.getString("name"));
+                s.setDateofWarehousing(rs.getDate("dateofWarehousing"));
+                s.setPurchaseMoney(rs.getInt("purchaseMoney"));
+                s.setQuantityWarehousing(rs.getInt("quantityWarehousing"));
+                s.setStocks(rs.getInt("stocks"));
+                s.setTypes(rs.getString("types"));
+                storages.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StorageDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return storages;
+    }
 }
