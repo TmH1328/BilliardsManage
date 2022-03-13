@@ -53,10 +53,10 @@ public class DisplayController extends HttpServlet {
             ArrayList<Storage> storages = db.getStoragesbyPage(account.getUsername(), pageindex, pagesize);
             request.setAttribute("storages", storages);
             int count = db.count();
-        int totalpage = (count%pagesize==0)?(count/pagesize):(count/pagesize)+1;
-        request.setAttribute("totalpage", totalpage);
-        request.setAttribute("pageindex", pageindex);
-            
+            int totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize) + 1;
+            request.setAttribute("totalpage", totalpage);
+            request.setAttribute("pageindex", pageindex);
+
             request.getRequestDispatcher("view/storage/display.jsp").forward(request, response);
         }
     }

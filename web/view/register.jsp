@@ -18,8 +18,8 @@
             Password: <input type="password" placeholder="Password" name="password"/> <br/>
             Re-Enter Password: <input type="password" placeholder="Repeat Password" name="repassword" required><br>
             <p >${registerFailed}</p>
-            <input type="submit" value="Register" /><br>
-            <a href="login">Already have an Account?</a><br>
+            <input type="submit" value="Đăng Ký" /><br>
+            <a href="login">Bạn đã có tài khoản?</a><br>
         </form>
     </body>
 </html>

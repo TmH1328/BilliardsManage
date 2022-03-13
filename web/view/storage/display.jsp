@@ -23,12 +23,12 @@
             <tbody>
                 <tr>
                     <td>ID</td>
-                    <td>Name</td>
-                    <td>Date of Warehousing</td>
-                    <td>Purchase Money</td>
-                    <td>Quantity Warehousing</td>
-                    <td>Stocks</td>
-                    <td>Types</td>
+                    <td>Tên sản phẩm</td>
+                    <td>Ngày nhập hàng</td>
+                    <td>Tiền nhập hàng</td>
+                    <td>Số lượng nhập kho</td>
+                    <td>Tồn Kho</td>
+                    <td>Loại hàng</td>
                 </tr>
                 <c:forEach items="${requestScope.storages}" var="s">
                 <tr>
