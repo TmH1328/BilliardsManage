@@ -14,23 +14,33 @@
         <title>JSP Page</title>
         <script src="js/pagger.js" type="text/javascript"></script>
         <link href="css/pagger.css" rel="stylesheet" type="text/css"/>
-     
+        <script>
+            
+            function deleteStorage(id)
+            {
+                var result = confirm("are you sure?");
+                if (result)
+                {
+                    window.location.href = 'delete?id=' + id;
+                }
+            }
+        </script>
     </head>
     <body>
         <div id ="containertop" class ="pagger">        </div>
         <table border="1">
-            </thead>
-            <tbody>
-                <tr>
-                    <td>ID</td>
-                    <td>Tên sản phẩm</td>
-                    <td>Ngày nhập hàng</td>
-                    <td>Tiền nhập hàng</td>
-                    <td>Số lượng nhập kho</td>
-                    <td>Tồn Kho</td>
-                    <td>Loại hàng</td>
-                </tr>
-                <c:forEach items="${requestScope.storages}" var="s">
+        </thead>
+        <tbody>
+            <tr>
+                <td>ID</td>
+                <td>Tên sản phẩm</td>
+                <td>Ngày nhập hàng</td>
+                <td>Tiền nhập hàng</td>
+                <td>Số lượng nhập kho</td>
+                <td>Tồn Kho</td>
+                <td>Loại hàng</td>
+            </tr>
+            <c:forEach items="${requestScope.storages}" var="s">
                 <tr>
                     <td>${s.id}</td>
                     <td>${s.name}</td>
@@ -39,16 +49,19 @@
                     <td>${s.quantityWarehousing}</td>
                     <td>${s.stocks}</td>
                     <td>${s.types}</td>
+                    <td><a href="update?id=${s.id}">Thay Đổi Mặt Hàng </a></td>
+                    <td><a href="#" onclick="deleteStorage(${s.id})" >Delete</a></td>
                 </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-<!--        <div id ="containerbot" class ="pagger">        </div>-->
-        <script>
-            pagger("containertop",${requestScope.pageindex},${requestScope.totalpage},3);
-            pagger("containerbot",${requestScope.pageindex},${requestScope.totalpage},3);
-        </script>
+            </c:forEach>
+        </tbody>
+    </table>
+    <h3><a href="insert">Thêm Mặt Hàng Mới</a></h3>
+    <!--        <div id ="containerbot" class ="pagger">        </div>-->
+    <script>
+            pagger("containertop",${requestScope.pageindex},${requestScope.totalpage}, 3);
+            pagger("containerbot",${requestScope.pageindex},${requestScope.totalpage}, 3);
+    </script>
 
 
-    </body>
+</body>
 </html>
