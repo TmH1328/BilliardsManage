@@ -20,8 +20,6 @@ import model.Account;
  */
 public class LoginController extends HttpServlet {
 
-    
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -52,16 +50,14 @@ public class LoginController extends HttpServlet {
         String password = request.getParameter("password");
         AccountDBContext db = new AccountDBContext();
         Account account = db.getAccount(username, password);
-        
-        if(account == null)
-        {
-            request.getSession().setAttribute("account", null);
-            response.getWriter().println("login failed!");
-        }
-        else
-        {
+        request.setAttribute("loginFailed", "Bạn đã nhập sai tài khoản hoặc mật khẩu");
+        if (account == null) {
+            
+            request.getRequestDispatcher("view/login.jsp").forward(request, response);
+        } else {
             request.getSession().setAttribute("account", account);
-            request.getRequestDispatcher("view/home.jsp").forward(request, response);
+//            request.getRequestDispatcher("view/home.jsp").forward(request, response);
+            response.sendRedirect("home");
         }
     }
 

@@ -11,8 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <body>
-        <h1>Hello World!</h1>
+    <body>       
         <h2><a href="display">Kiem tra Kho Hang</a></h2>
     </body>
 </html>
