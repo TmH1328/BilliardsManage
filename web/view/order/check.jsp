@@ -21,7 +21,9 @@
         %>
     <body>
         <a id="home" href="home">Quay về Trang Chủ</a>
-      
+        <br>
+        <a id="list" href="list">Thêm Vào Hóa Đơn </a>
+        <form action="confirmorder" method="POST" >
         <% if (order != null) {%>
         <table id="table" border="5">
 
@@ -29,23 +31,32 @@
                 <tr>
                    
                     <td>Tên sản phẩm</td>
+               
                     <td>Số Hàng Đã Bán</td>
                     <td>Giá Bán</td>
                     <td>Tổng Tiền</td>
+                    <td>Tiền Lãi</td>
+         
                     
                 </tr>
                 <%  for (OrderDetail od : order.getDetails())    {                   %>
                     <tr>
-<!--                        <td>${od.storage.name}</td>-->
                         <td><%=od.getStorage().getName()%></td>
                         <td><%=od.getQuantity() %></td>                                             
-                        <td><%=od.getUnitprice() %></td>
+                        <td><%=od.getUnitprice() %></td>                        
                         <td><%=od.getTotal() %></td>
+                        <td><%=od.getProfit() %></td>
                     </tr>
                <% }%>
                <tr>
                    <td colspan="3"></td>
                    <td><%=order.getTotal() %></td>
+                   <td><%=order.getTotalProfit()%></td>
+               </tr>
+               <tr>
+                   <td colspan="3">Ngày Bán Hàng</td>
+                   <td><input type="date" name="orderdate" value="${requestScope.currentdate}"/></td>
+                    
                </tr>
             </tbody>
         </table>    
@@ -57,6 +68,7 @@
         You have not made any order
         <%}%>
         <br>
-        <a id="list" href="list">Tạo Hóa Đơn</a>
+        <input type="submit" value="Xác Nhận Hóa Đơn" />
+        </form>
     </body>
 </html>

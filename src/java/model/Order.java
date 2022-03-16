@@ -16,10 +16,19 @@ public class Order {
     private ArrayList<OrderDetail> details = new ArrayList<>();
     private int id;
     private Date orderdate;
-    private int profit;
+    private float profit;
     
     public int getSize() {
         return details.size();
+    }
+    
+    public float getTotalProfit() {
+        float sum =0 ;
+        for (OrderDetail detail : details) {
+            sum += detail.getProfit();
+        }
+        return sum;
+    
     }
     
     public int getTotal() {
@@ -53,7 +62,7 @@ public class Order {
         this.orderdate = orderdate;
     }
 
-    public int getProfit() {
+    public float getProfit() {
         return profit;
     }
 

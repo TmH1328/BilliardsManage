@@ -69,7 +69,7 @@ public class AddOrderController extends BaseAuthController {
             OrderDetail detail = new OrderDetail();
             detail.setOrder(order);
             detail.setStorage(storage);
-            detail.setQuantity(1);
+            detail.setQuantity(quantity);
             detail.setUnitprice(storage.getUnitprice());
             order.getDetails().add(detail);
         }

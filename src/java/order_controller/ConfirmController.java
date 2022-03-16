@@ -18,16 +18,37 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author LENOVO
  */
-public class CheckoutController extends BaseAuthController {
+public class ConfirmController extends BaseAuthController {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         long millis = System.currentTimeMillis();
         Date date = new Date(millis);
         
         request.setAttribute("currentdate", date);
+        
         request.getRequestDispatcher("view/order/check.jsp").forward(request, response);
-
     }
 
     /**

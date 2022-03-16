@@ -15,6 +15,13 @@ public class OrderDetail {
     private int quantity;
     private int unitprice;
     
+    public float getProfit() {
+        float purchasemoney = (float)storage.getPurchaseMoney() / storage.getQuantityWarehousing();
+        float profit = quantity*purchasemoney;
+        return getTotal() - profit;
+    }
+    
+    
     public int getTotal() {
         return quantity*unitprice;
     }

@@ -27,8 +27,6 @@
         <a href="check">Kiem tra Hoa Don</a>
         <br>
         <%=order.getSize() + " "%> items in the order
-
-
         <table id="table" border="5">
 
             <tbody>
