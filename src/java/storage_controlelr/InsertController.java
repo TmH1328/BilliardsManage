@@ -26,31 +26,7 @@ import model.Storage;
  */
 public class InsertController extends BaseAuthController {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet InsertController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet InsertController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -91,12 +67,14 @@ public class InsertController extends BaseAuthController {
         String raw_stocks = request.getParameter("stocks");
         String raw_doW = request.getParameter("dateofWarehousing");
         String raw_types = request.getParameter("types");
+        String raw_unitprice = request.getParameter("unitprice");
 
         //validate data
         //  int id = Integer.parseInt(raw_id);
         int purchaseMoney = Integer.parseInt(raw_purchaseMoney);
         int quantity = Integer.parseInt(raw_quantity);
         int stocks = Integer.parseInt(raw_stocks);
+        int unitprice = Integer.parseInt(raw_unitprice);
         String types = raw_types;
         
         String name = raw_name;
@@ -106,18 +84,18 @@ public class InsertController extends BaseAuthController {
         ItemTypes t = new ItemTypes();
         t.setName(types);
         Storage s = new Storage();
-        // s.setId(id);
+    
         s.setName(name);
         s.setDateofWarehousing(doW);
         s.setQuantityWarehousing(quantity);
         s.setPurchaseMoney(purchaseMoney);
         s.setStocks(stocks);
         s.setTypes(t.getName());
-
+        s.setUnitprice(unitprice);
         StorageDBContext db = new StorageDBContext();
-        db.insertItems(s, account.getUsername());
+        db.insertItems(s , account.getUsername());
 
-        //response.getWriter().println("done");
+       
         response.sendRedirect("display");
 
     }

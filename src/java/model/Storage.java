@@ -12,6 +12,7 @@ import java.sql.Date;
  * @author LENOVO
  */
 public class Storage {
+
     private int id;
     private String name;
     private Date dateofWarehousing;
@@ -19,6 +20,7 @@ public class Storage {
     private int purchaseMoney;
     private int stocks;
     private String types;
+    private int unitprice;
 
     public int getId() {
         return id;
@@ -59,8 +61,7 @@ public class Storage {
     public void setPurchaseMoney(int purchaseMoney) {
         this.purchaseMoney = purchaseMoney;
     }
-    
-    
+
     public int getStocks() {
         return stocks;
     }
@@ -75,6 +76,14 @@ public class Storage {
 
     public void setTypes(String types) {
         this.types = types;
+    }
+
+    public int getUnitprice() {
+        return unitprice;
+    }
+
+    public void setUnitprice(int unitprice) {
+        this.unitprice = unitprice;
     }
     
 }

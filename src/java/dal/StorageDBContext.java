@@ -17,12 +17,17 @@ import model.Storage;
  *
  * @author LENOVO
  */
+
+
+
+
+
 public class StorageDBContext extends DBContext {
 
     public ArrayList<Storage> getStorages(String username) {
         ArrayList<Storage> storages = new ArrayList();
         try {
-            String sql = "SELECT s.id, s.name, s.dateofWarehousing,s.purchaseMoney,s.quantityWarehousing,s.stocks,s.types FROM Account a INNER JOIN Storage s\n"
+            String sql = "SELECT s.id, s.name, s.dateofWarehousing,s.purchaseMoney,s.quantityWarehousing,s.stocks,s.types,s.unitprice FROM Account a INNER JOIN Storage s\n"
                     + "ON s.username = a.username \n"
                     + "WHERE s.username = ?";
 
@@ -41,6 +46,7 @@ public class StorageDBContext extends DBContext {
                 s.setQuantityWarehousing(rs.getInt("quantityWarehousing"));
                 s.setStocks(rs.getInt("stocks"));
                 s.setTypes(rs.getString("types"));
+                s.setUnitprice(rs.getInt("unitprice"));
                 storages.add(s);
             }
         } catch (SQLException ex) {
@@ -68,7 +74,7 @@ public class StorageDBContext extends DBContext {
     public ArrayList<Storage> getStoragesbyPage(String username, int pageindex, int pagesize) {
         ArrayList<Storage> storages = new ArrayList<>();
         try {
-            String sql = "SELECT s.id, s.name, s.dateofWarehousing,s.purchaseMoney,s.quantityWarehousing,s.stocks,s.types FROM \n"
+            String sql = "SELECT s.id, s.name, s.dateofWarehousing,s.purchaseMoney,s.quantityWarehousing,s.stocks,s.types,s.unitprice FROM \n"
                     + "(SELECT *, ROW_NUMBER() OVER (ORDER BY dateofWarehousing DESC) as row_index FROM Storage) s INNER JOIN Account a\n"
                     + "ON s.username = a.username \n"
                     + "	WHERE row_index >= (?-1)*?+ 1\n"
@@ -90,6 +96,7 @@ public class StorageDBContext extends DBContext {
                 s.setQuantityWarehousing(rs.getInt("quantityWarehousing"));
                 s.setStocks(rs.getInt("stocks"));
                 s.setTypes(rs.getString("types"));
+                s.setUnitprice(rs.getInt("unitprice"));
                 storages.add(s);
             }
         } catch (SQLException ex) {
@@ -99,16 +106,18 @@ public class StorageDBContext extends DBContext {
     }
 
     public void insertItems(Storage s, String username) {
-        String sql = "INSERT INTO [Storage]\n"
+        String sql = "INSERT INTO [dbo].[Storage]\n"
                 + "           ([name]\n"
                 + "           ,[dateofWarehousing]\n"
                 + "           ,[purchaseMoney]\n"
                 + "           ,[quantityWarehousing]\n"
                 + "           ,[stocks]\n"
                 + "           ,[types]\n"
-                + "           ,[username])\n"
+                + "           ,[username]\n"
+                + "           ,[unitprice])\n"
                 + "     VALUES\n"
                 + "           (?\n"
+                + "           ,?\n"
                 + "           ,?\n"
                 + "           ,?\n"
                 + "           ,?\n"
@@ -118,7 +127,6 @@ public class StorageDBContext extends DBContext {
         PreparedStatement stm = null;
         try {
             stm = connection.prepareStatement(sql);
-
             stm.setString(1, s.getName());
             stm.setDate(2, s.getDateofWarehousing());
             stm.setInt(3, s.getPurchaseMoney());
@@ -126,6 +134,7 @@ public class StorageDBContext extends DBContext {
             stm.setInt(5, s.getStocks());
             stm.setString(6, s.getTypes());
             stm.setString(7, username);
+            stm.setInt(8, s.getUnitprice());
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(StorageDBContext.class.getName()).log(Level.SEVERE, null, ex);
@@ -166,6 +175,7 @@ public class StorageDBContext extends DBContext {
                 s.setQuantityWarehousing(rs.getInt("quantityWarehousing"));
                 s.setStocks(rs.getInt("stocks"));
                 s.setTypes(rs.getString("types"));
+                s.setUnitprice(rs.getInt("unitprice"));
                 return s;
             }
         } catch (SQLException ex) {
@@ -183,12 +193,13 @@ public class StorageDBContext extends DBContext {
                 + "      ,[stocks] = ?\n"
                 + "      ,[types] = ?\n"
                 + "      ,[username] = ?\n"
+                + "      ,[unitprice] = ?\n"
                 + " WHERE [id] = ?";
         PreparedStatement stm = null;
         try {
             stm = connection.prepareStatement(sql);
 
-            stm.setInt(8, s.getId());
+            stm.setInt(9, s.getId());
             stm.setString(1, s.getName());
             stm.setDate(2, s.getDateofWarehousing());
             stm.setInt(3, s.getPurchaseMoney());
@@ -196,6 +207,7 @@ public class StorageDBContext extends DBContext {
             stm.setInt(5, s.getStocks());
             stm.setString(6, s.getTypes());
             stm.setString(7, username);
+            stm.setInt(8, s.getUnitprice());
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(StorageDBContext.class.getName()).log(Level.SEVERE, null, ex);

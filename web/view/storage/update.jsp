@@ -53,6 +53,10 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>Giá Bán</td>
+                        <td><input type="text" name="unitprice" value="${requestScope.storage.unitprice}"/></td>
+                    </tr>
+                    <tr>
                         <td></td>
                         <td><input type="submit" value="Cập nhật sẩn phẩm"/></td>
                     </tr>

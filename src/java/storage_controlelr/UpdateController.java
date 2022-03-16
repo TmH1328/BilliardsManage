@@ -37,12 +37,11 @@ public class UpdateController extends BaseAuthController {
         TypesDBContext db = new TypesDBContext();
         ArrayList<ItemTypes> types = db.getTypes();
         request.setAttribute("types", types);;
-        
+
         StorageDBContext stoDB = new StorageDBContext();
-        Storage storage = stoDB.getStorage(id,account.getUsername());
+        Storage storage = stoDB.getStorage(id, account.getUsername());
         request.setAttribute("storage", storage);
-        
-        
+
         request.getRequestDispatcher("view/storage/update.jsp").forward(request, response);
     }
 
@@ -57,7 +56,7 @@ public class UpdateController extends BaseAuthController {
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
         String raw_id = request.getParameter("id");
@@ -67,14 +66,15 @@ public class UpdateController extends BaseAuthController {
         String raw_stocks = request.getParameter("stocks");
         String raw_doW = request.getParameter("dateofWarehousing");
         String raw_types = request.getParameter("types");
-
+        String raw_unitprice = request.getParameter("unitprice");
         //validate data
+        int unitprice = Integer.parseInt(raw_unitprice);
         int id = Integer.parseInt(raw_id);
         int purchaseMoney = Integer.parseInt(raw_purchaseMoney);
         int quantity = Integer.parseInt(raw_quantity);
         int stocks = Integer.parseInt(raw_stocks);
         String types = raw_types;
-        
+
         String name = raw_name;
 
         Date doW = Date.valueOf(raw_doW);
@@ -89,7 +89,7 @@ public class UpdateController extends BaseAuthController {
         s.setPurchaseMoney(purchaseMoney);
         s.setStocks(stocks);
         s.setTypes(t.getName());
-
+        s.setUnitprice(unitprice);
         StorageDBContext db = new StorageDBContext();
         db.updateItems(s, account.getUsername());
 

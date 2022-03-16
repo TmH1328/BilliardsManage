@@ -13,5 +13,6 @@
     </head>
     <body>       
         <h2><a href="display">Kiem tra Kho Hang</a></h2>
+        <h2><a href="check">Kiem tra Hoa Don</a></h2>
     </body>
 </html>

@@ -51,6 +51,10 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>Giá Bán</td>
+                        <td><input type="text" name="unitprice"/></td>
+                    </tr>
+                    <tr>
                         <td></td>
                         <td><input type="submit" value="Save"/></td>
                     </tr>

@@ -35,7 +35,6 @@
             <a id="home" href="home">Quay về Trang Chủ</a>
             <h3><a id="insert" href="insert">Thêm Mặt Hàng Mới</a></h3>
             <table id="table" border="5">
-                </thead>
                 <tbody>
                     <tr>
                         <td>ID</td>
@@ -45,6 +44,7 @@
                         <td>Số lượng nhập kho</td>
                         <td>Tồn Kho</td>
                         <td>Loại hàng</td>
+                        <td>Giá Bán</td>
                     </tr>
                     <c:forEach items="${requestScope.storages}" var="s">
                         <tr>
@@ -55,6 +55,7 @@
                             <td>${s.quantityWarehousing}</td>
                             <td>${s.stocks}</td>
                             <td>${s.types}</td>
+                            <td>${s.unitprice}</td>
                             <td><a id="update" href="update?id=${s.id}">Thay Đổi Mặt Hàng </a></td>
                             <td><a id="delete" href="#" onclick="deleteStorage(${s.id})" >Delete</a></td>
                         </tr>
