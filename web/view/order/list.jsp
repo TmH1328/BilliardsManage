@@ -24,9 +24,10 @@
     <body>
         <a id="home" href="home">Quay về Trang Chủ</a>
         <br>
-        <a href="check">Kiem tra Hoa Don</a>
+        <a href="confirmorder">Xác nhận hóa đơn</a>
         <br>
         <%=order.getSize() + " "%> items in the order
+
         <table id="table" border="5">
 
             <tbody>
@@ -43,22 +44,23 @@
                         <td id="${s.name}">${s.name}</td>                     
                         <td>${s.stocks}</td>
                         <td>${s.unitprice}</td>
-                      
-                            <form action="addorder" method="POST">
-                                <td><input type="number" name="quantity" value="0" min="0" max="${s.stocks}"></td>
-                                <td>
-                                <input type="hidden" value="${s.id}" name="id"/>
-                                <input type="submit" value="Thêm vào hóa đơn" />
-                                <td>
-                            </form>
-                          
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>    
-        <div id ="containerbot" class ="pagger">        </div>
-        <script>
-            pagger("containerbot",${requestScope.pageindex},${requestScope.totalpage}, 3);
-        </script>
-    </body>
+                <form action="addorder" method="POST">
+
+                <td><input type="number" name="quantity" value="0" min="0" max="${s.stocks}"></td>
+                <td>
+                    <input type="hidden" value="${s.id}" name="id"/>
+                    <input type="submit" value="Thêm vào hóa đơn" />
+                </td>
+            </form>
+
+
+        </tr>
+    </c:forEach>
+</tbody>
+</table>    
+<div id ="containerbot" class ="pagger">        </div>
+<script>
+    pagger("containerbot",${requestScope.pageindex},${requestScope.totalpage}, 3);
+</script>
+</body>
 </html>

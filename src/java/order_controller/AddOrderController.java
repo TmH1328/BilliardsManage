@@ -45,12 +45,14 @@ public class AddOrderController extends BaseAuthController {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
 
-        
         int id = Integer.parseInt(request.getParameter("id"));
-        
+
         int quantity = Integer.parseInt(request.getParameter("quantity"));
+
         StorageDBContext db = new StorageDBContext();
         Storage storage = db.getStorage(id, account.getUsername());
+        storage.setQuantitysell(quantity);
+        int raw_odquantity = storage.getQuantitysell();
         Order order = (Order) request.getSession().getAttribute("neworder");
         if (order == null) {
             order = new Order();
@@ -60,7 +62,8 @@ public class AddOrderController extends BaseAuthController {
         for (OrderDetail detail : order.getDetails()) {
             if (detail.getStorage().getId() == storage.getId()) {
                 isExist = true;
-                detail.setQuantity(detail.getQuantity() + quantity);
+
+                detail.setQuantity(detail.getQuantity() + raw_odquantity);
                 break;
             }
         }
@@ -69,13 +72,13 @@ public class AddOrderController extends BaseAuthController {
             OrderDetail detail = new OrderDetail();
             detail.setOrder(order);
             detail.setStorage(storage);
-            detail.setQuantity(quantity);
+            detail.setQuantity(storage.getQuantitysell());
             detail.setUnitprice(storage.getUnitprice());
             order.getDetails().add(detail);
         }
 
         request.getSession().setAttribute("neworder", order);
-
+        
         response.sendRedirect("list");
     }
 

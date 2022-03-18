@@ -36,12 +36,10 @@ h1 {
 .login {
     width: 400px;
     height: 300px;
-
     border-radius: 10px;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    
     outline: none;
 
 
@@ -80,7 +78,6 @@ input {
     font-size: 20px;
     
 }
-
 
 p {
     font-size: 20px;

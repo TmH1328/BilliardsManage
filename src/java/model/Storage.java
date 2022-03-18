@@ -20,7 +20,8 @@ public class Storage {
     private int purchaseMoney;
     private int stocks;
     private String types;
-    private int unitprice;
+    private int unitprice;   
+    private int quantitysell;
 
     public int getId() {
         return id;
@@ -84,6 +85,14 @@ public class Storage {
 
     public void setUnitprice(int unitprice) {
         this.unitprice = unitprice;
+    }
+
+    public int getQuantitysell() {
+        return quantitysell;
+    }
+
+    public void setQuantitysell(int quantitysell) {
+        this.quantitysell = quantitysell;
     }
     
 }

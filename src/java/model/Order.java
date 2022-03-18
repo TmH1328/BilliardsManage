@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class Order {
     private ArrayList<OrderDetail> details = new ArrayList<>();
-    private int id;
+
     private Date orderdate;
     private float profit;
     
@@ -46,13 +46,7 @@ public class Order {
         this.details = details;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+   
 
     public Date getOrderdate() {
         return orderdate;
@@ -66,7 +60,7 @@ public class Order {
         return profit;
     }
 
-    public void setProfit(int profit) {
+    public void setProfit(float profit) {
         this.profit = profit;
     }
     

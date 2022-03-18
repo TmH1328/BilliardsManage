@@ -6,13 +6,16 @@
 package order_controller;
 
 import Account_controller.BaseAuthController;
+import dal.OrderDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.OrderDetail;
 
 /**
  *
@@ -23,10 +26,9 @@ public class CheckoutController extends BaseAuthController {
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         long millis = System.currentTimeMillis();
-        Date date = new Date(millis);
-        
-        request.setAttribute("currentdate", date);
-        request.getRequestDispatcher("view/order/check.jsp").forward(request, response);
+        Date currentdate = new Date(millis);
+        request.setAttribute("currentdate", currentdate);
+        request.getRequestDispatcher("view/order/confirmorder.jsp").forward(request, response);
 
     }
 
@@ -41,7 +43,15 @@ public class CheckoutController extends BaseAuthController {
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String raw_date = request.getParameter("orderdate");
         
+        OrderDBContext dbo = new OrderDBContext();
+        ArrayList<OrderDetail> orderDetails = dbo.getOrderDetails(raw_date);
+
+        request.setAttribute("orderDetails", orderDetails);
+
+        request.getRequestDispatcher("view/order/confirmorder.jsp").forward(request, response);
+
     }
 
     /**
