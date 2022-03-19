@@ -104,7 +104,52 @@ public class OrderDBContext extends DBContext {
                 od.setOrder(order);
                 od.setQuantity(rs.getInt("quantity"));
                 od.setUnitprice(rs.getInt("unitprice"));
-                
+
+                orderdetails.add(od);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return orderdetails;
+    }
+
+    public ArrayList<OrderDetail> getViewOrderDetails(String raw_date) {
+        ArrayList<OrderDetail> orderdetails = new ArrayList<>();
+        try {
+            String sql = "  SELECT DISTINCT  od.sid, od.orderdate, od.quantity, s.unitprice, s.id, s.[name], s.[dateofWarehousing], s.purchaseMoney, s.quantityWarehousing, \n"
+                    + "  s.stocks, s.[types], \n"
+                    + "  s.username, s.unitprice,\n"
+                    + " od.quantity*(s.unitprice - (CAST (s.purchaseMoney AS float )/CAST (s.quantityWarehousing  AS float ))) AS profit\n"
+                    + "  FROM OrderDetail od INNER JOIN Storage s \n"
+                    + " ON od.sid = s.id INNER JOIN [Order] o\n"
+                    + "ON od.orderdate = o.orderdate\n"
+                    + "Where od.orderdate = ? ";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, raw_date);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                OrderDetail od = new OrderDetail();
+                Storage s = new Storage();
+                Order order = new Order();
+
+                s.setId(rs.getInt("sid"));
+                s.setName(rs.getString("name"));
+                s.setDateofWarehousing(rs.getDate("dateofWarehousing"));
+                s.setQuantityWarehousing(rs.getInt("quantityWarehousing"));
+                s.setQuantitysell(rs.getInt("quantity"));
+                s.setPurchaseMoney(rs.getInt("purchaseMoney"));
+                s.setStocks(rs.getInt("stocks"));
+                s.setTypes(rs.getString("types"));
+                s.setUnitprice(rs.getInt("unitprice"));
+
+                order.setOrderdate(rs.getDate("orderdate"));
+                order.setProfit(rs.getFloat("profit"));
+
+                od.setStorage(s);
+                od.setOrder(order);
+                od.setQuantity(rs.getInt("quantity"));
+                od.setUnitprice(rs.getInt("unitprice"));
+
                 orderdetails.add(od);
             }
         } catch (SQLException ex) {

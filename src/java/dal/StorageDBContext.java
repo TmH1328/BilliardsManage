@@ -17,11 +17,6 @@ import model.Storage;
  *
  * @author LENOVO
  */
-
-
-
-
-
 public class StorageDBContext extends DBContext {
 
     public ArrayList<Storage> getStorages(String username) {
@@ -261,5 +256,38 @@ public class StorageDBContext extends DBContext {
             }
         }
 
+    }
+
+    public void updateStocks(int storageid, int i) {
+        String sql = " UPDATE Storage\n"
+                + " SET stocks = ?\n"
+                + " WHERE id = ? ";
+        PreparedStatement stm = null;
+        try {
+            stm = connection.prepareStatement(sql);
+
+            
+            stm.setInt(1, i);
+            stm.setInt(2, storageid);
+            
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(StorageDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(StorageDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(StorageDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }
 }

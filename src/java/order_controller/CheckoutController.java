@@ -46,7 +46,8 @@ public class CheckoutController extends BaseAuthController {
         String raw_date = request.getParameter("orderdate");
         
         OrderDBContext dbo = new OrderDBContext();
-        ArrayList<OrderDetail> orderDetails = dbo.getOrderDetails(raw_date);
+   //     ArrayList<OrderDetail> orderDetails = dbo.getOrderDetails(raw_date);
+        ArrayList<OrderDetail> orderDetails = dbo.getViewOrderDetails(raw_date);
 
         request.setAttribute("orderDetails", orderDetails);
 

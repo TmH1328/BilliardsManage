@@ -64,25 +64,20 @@ public class ConfirmController extends BaseAuthController {
         
         
         Order o = new Order();
-       // o.setId(id);
+   
         o.setOrderdate(orderdate);
-        //cai profit order = total profit
+  
         o.setProfit(neworder.getTotalProfit());
         
-//        for (String sid : sids) {
-//            int storageid = Integer.parseInt(sid);
-//            Storage s = dbs.getStorage(storageid, account.getUsername());
-//            OrderDetail od  = new OrderDetail();
-//            od.setStorage(s);
-//            od.setOrder(neworder);
-//            od.setQuantity(10);
-//            od.setUnitprice(s.getUnitprice());
-//            o.getDetails().add(od);
-//        }
+
         for (int i = 0 ; i < sids.length; i++) {
             int storageid = Integer.parseInt(sids[i]);
             int validatequantity = Integer.parseInt(quantity[i]);
             Storage s = dbs.getStorage(storageid, account.getUsername());
+            int newstocks = s.getStocks() - validatequantity;
+            dbs.updateStocks(storageid, newstocks);
+            
+            
             OrderDetail od  = new OrderDetail();
             od.setStorage(s);
             od.setOrder(neworder);

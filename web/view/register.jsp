@@ -16,6 +16,7 @@
 
         <div class="bg-img">
             <h1>Tạo tài khoản mới</h1>
+            
             <div class="register">
                 <form action="register" method="POST">
                     <input type="text" placeholder="Tên" name="displayname" /> <br/>
