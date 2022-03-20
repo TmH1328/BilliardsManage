@@ -14,6 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script src="js/paggerlist.js" type="text/javascript"></script>
+         <link href="css/ordercss/list.css" rel="stylesheet" type="text/css"/>
         <%
             Order order = (Order) session.getAttribute("neworder");
             if (order == null) {
